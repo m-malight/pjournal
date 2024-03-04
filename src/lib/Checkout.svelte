@@ -1,24 +1,46 @@
 <script>
     import Modal from "./Modal.svelte";
-    import {PaymentMethod, ProductInfo} from "../utils/checkout";
+    import {ProductInfo} from "../utils/checkout";
+    import AddEntry from "./AddEntry.svelte";
     export let modalVisible = false
     export let closeModal = () => {};
     export let showIncome = true;
 
+    let modalInitialStates = {
+        name: "",
+        amount: "",
+        date: "",
+        desc: "",
+        type: "inflow",
+        submit: false,
+    }
+
+    let infoInitialState = {visible:false, info:{}};
+
+    let inFlow = [{src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", amount: "78.00", date: "2022-10-14", desc: ""}]
+    let outFlow = [{src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", amount: "78.00", date: "2022-10-20", desc: ""}]
+
     function cb(modalStates){
+        if(modalStates.type === "inflow" && modalStates.submit){
+            inFlow = [...inFlow, {...modalStates, src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg"}]
+        } else if(modalStates.submit){
+            outFlow = [...outFlow, {...modalStates, src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg"}]
+        }
         modalVisible = false
         closeModal()
-        console.log(modalStates)
     }
+
+    const info_cb = () => infoInitialState.visible = false
 </script>
 
 <div class="grid grid-rows-10 mx-3 pb-2 h-[inherit] md:grid-cols-10 md:gap-8">
     <div class={`row-span-10 ${showIncome ? "" : "hidden"} md:col-span-6 overflow-y-scroll remove-scrollbar`}>
         <h1 class="font-bold text-2xl">In-flow</h1> 
-        {@html ProductInfo({src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", price: "78.00", desc: "Size, Medium Color: Black"})}
-        {@html ProductInfo({src: "https://images.pexels.com/photos/5889715/pexels-photo-5889715.jpeg", name: "Men's Suit", price: "78.00", desc: "Size, Medium Color: Black"})}
-        {@html ProductInfo({src:"https://images.pexels.com/photos/9489458/pexels-photo-9489458.png", name: "Women's Trouser", price: "78.00", desc: "Size, Medium Color: Black"})}
-        {@html ProductInfo({src: "https://images.pexels.com/photos/235525/pexels-photo-235525.jpeg", name: "Women's Jewelry", price: "78.00", desc: "Size, Medium Color: Black"})}
+        {#each inFlow as flow}
+            <a href="#/" on:click={()=>infoInitialState={visible: true, info: flow}}>
+                {@html ProductInfo({src: flow.src, name: flow.name, price:flow.amount, date: flow.date})}
+            </a>
+        {/each}
         <div class="flex my-4 justify-between">
             <h2 class="font-normal text-xm text-gray-500 md:text-xl">Subtotal</h2>
             <h2 class="font-normal text-xm md:text-xl">$156.00</h2>
@@ -41,10 +63,11 @@
     </div>
     <div class={`row-span-10 ${showIncome ? "hidden" : ""} overflow-y-scroll remove-scrollbar md:col-span-4 md:block`}>
         <h1 class="font-bold text-2xl">Out-flow</h1> 
-        {@html ProductInfo({src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", price: "78.00", desc: "Size, Medium Color: Black"})}
-        {@html ProductInfo({src: "https://images.pexels.com/photos/5889715/pexels-photo-5889715.jpeg", name: "Men's Suit", price: "78.00", desc: "Size, Medium Color: Black"})}
-        {@html ProductInfo({src:"https://images.pexels.com/photos/9489458/pexels-photo-9489458.png", name: "Women's Trouser", price: "78.00", desc: "Size, Medium Color: Black"})}
-        {@html ProductInfo({src: "https://images.pexels.com/photos/235525/pexels-photo-235525.jpeg", name: "Women's Jewelry", price: "78.00", desc: "Size, Medium Color: Black"})}
+        {#each outFlow as flow}
+            <a href="#/" on:click={()=>infoInitialState={visible: true, info: flow}}>
+                {@html ProductInfo({src: flow.src, name: flow.name, price:flow.amount, date: flow.date})}
+            </a>
+        {/each}
         <div class="md:hidden">
             <div class="flex my-4 justify-between">
                 <h2 class="font-normal text-xm text-gray-500 md:text-xl">Subtotal</h2>
@@ -69,4 +92,5 @@
     </div>  
 </div>
 
-<Modal {modalVisible} callbackFn={cb} useHtml setHtml={PaymentMethod({value:"SM", option:"me"})}/>
+<Modal {modalVisible} {modalInitialStates} callbackFn={cb} component={AddEntry}/>
+<Modal modalVisible={infoInitialState.visible} callbackFn={info_cb} useHtml setHtml={ProductInfo(infoInitialState.info)}/>
