@@ -2,6 +2,7 @@
     import Modal from "./Modal.svelte";
     import {ProductInfo} from "../utils/checkout";
     import AddEntry from "./AddEntry.svelte";
+  import ProductDetails from "./ProductDetails.svelte";
     export let modalVisible = false
     export let closeModal = () => {};
     export let showIncome = true;
@@ -17,7 +18,7 @@
 
     let infoInitialState = {visible:false, info:{}};
 
-    let inFlow = [{src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", amount: "78.00", date: "2022-10-14", desc: ""}]
+    let inFlow = [{src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", amount: "78.00", date: "2022-10-14", desc: "From article"}]
     let outFlow = [{src: "https://images.pexels.com/photos/15707951/pexels-photo-15707951.jpeg", name: "Women's Cargo Utility Jogger", amount: "78.00", date: "2022-10-20", desc: ""}]
 
     function cb(modalStates){
@@ -93,4 +94,6 @@
 </div>
 
 <Modal {modalVisible} {modalInitialStates} callbackFn={cb} component={AddEntry}/>
-<Modal modalVisible={infoInitialState.visible} callbackFn={info_cb} useHtml setHtml={ProductInfo(infoInitialState.info)}/>
+<Modal modalVisible={infoInitialState.visible} callbackFn={info_cb}>
+    <ProductDetails details={infoInitialState.info} />
+</Modal>
