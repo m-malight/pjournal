@@ -1,11 +1,11 @@
-export function ProductInfo({ src, name, price, date }) {
+export function ProductInfo({ src, name, amount, date }) {
   return `<div class="flex my-4 items-center">
                 <div class="overflow-hidden h-[12vh] w-20 md:h-20 rounded-lg">
                     <img src=${src} alt="" class="h-full w-full" />
                 </div>
                 <div class="ml-4">
                     <h2 class="font-semibold text-xm md:text-xl">${name}</h2>
-                    <h2 class="font-normal text-xm text-gray-500 md:text-xl">$${price}</h2>
+                    <h2 class="font-normal text-xm text-gray-500 md:text-xl">$${amount}</h2>
                     <h2 class="font-normal text-xm text-gray-500 md:text-xl">${date}</h2>
                 </div>
             </div>`;

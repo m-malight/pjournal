@@ -38,7 +38,7 @@
         <h1 class="font-bold text-2xl">In-flow</h1> 
         {#each inFlow as flow}
             <a href="#/" on:click={()=>infoInitialState={visible: true, info: flow}}>
-                {@html ProductInfo({src: flow.src, name: flow.name, price:flow.amount, date: flow.date})}
+                {@html ProductInfo({src: flow.src, name: flow.name, amount:flow.amount, date: flow.date})}
             </a>
         {/each}
         <div class="flex my-4 justify-between">
@@ -65,7 +65,7 @@
         <h1 class="font-bold text-2xl">Out-flow</h1> 
         {#each outFlow as flow}
             <a href="#/" on:click={()=>infoInitialState={visible: true, info: flow}}>
-                {@html ProductInfo({src: flow.src, name: flow.name, price:flow.amount, date: flow.date})}
+                {@html ProductInfo({src: flow.src, name: flow.name, amount:flow.amount, date: flow.date})}
             </a>
         {/each}
         <div class="md:hidden">
