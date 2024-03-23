@@ -1,8 +1,6 @@
 <script>
-  // import {Router, Route} from "svelte-routing";
   import Checkout from "./lib/Checkout.svelte";
   import Scaffold from "./lib/Scaffold.svelte";
-  // import Modal from "./lib/Modal.svelte";
 
   let modalVisible = false;
   let showIncome = true;
@@ -21,11 +19,3 @@
     <Checkout {modalVisible} {closeModal} {showIncome} />
   </div>
 </main>
-
-<!-- <Router>
-  <Route path="/nav">
-    <Modal visible {callbackFn} let:modalSetStates let:modalStates let:modalClose>
-      <Scaffold />
-    </Modal>
-  </Route>
-</Router> -->
