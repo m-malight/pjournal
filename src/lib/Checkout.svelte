@@ -3,11 +3,11 @@
   import { ProductInfo } from "../utils/checkout";
   import AddEntry from "./AddEntry.svelte";
   import ProductDetails from "./ProductDetails.svelte";
-  export let modalVisible = false;
+  export let visible = false;
   export let closeModal = () => {};
   export let showIncome = true;
 
-  let modalInitialStates = {
+  let initialState = {
     name: "",
     amount: "",
     date: "",
@@ -55,7 +55,7 @@
         },
       ];
     }
-    modalVisible = false;
+    visible = false;
     closeModal();
   }
 
@@ -155,12 +155,7 @@
   </div>
 </div>
 
-<Modal
-  {modalVisible}
-  {modalInitialStates}
-  callbackFn={cb}
-  component={AddEntry}
-/>
-<Modal modalVisible={infoInitialState.visible} callbackFn={info_cb}>
+<Modal {visible} {initialState} onClose={cb} component={AddEntry} />
+<Modal visible={infoInitialState.visible} onClose={info_cb}>
   <ProductDetails details={infoInitialState.info} />
 </Modal>

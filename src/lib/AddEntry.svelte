@@ -1,15 +1,15 @@
 <script>
-  import * as Yup from "yup";
+  // import * as Yup from "yup";
   import Form from "@solisoma/svelte-form/lib/Form.svelte";
   import ErrorMessage from "@solisoma/svelte-form/lib/ErrorMessage.svelte";
-  export let modalClose;
-  export let modalStates;
-  export let modalSetStates;
+  export let closeModal;
+  export let modalState;
+  export let setModalState;
 
   function handleSubmit({ detail }) {
     console.log(detail);
-    modalSetStates({ ...detail, submit: true });
-    modalClose();
+    setModalState({ ...detail, submit: true });
+    closeModal();
   }
 
   const schemaValidator = {
@@ -58,13 +58,13 @@
   <div
     class="flex flex-col justify-between overflow-y-scroll remove-scrollbar h-[67vh] pb-2"
   >
-    <Form {schemaValidator} initialValue={modalStates} on:submit={handleSubmit}>
+    <Form {schemaValidator} initialValue={modalState} on:submit={handleSubmit}>
       <div class="flex flex-col gap-3">
         <input
           type="text"
           placeholder="Name"
           name="name"
-          value={modalStates.name}
+          value={modalState.name}
           class="p-3 bg-white entry-field border-2 border-gray-300 rounded-lg outline-none"
         />
         <ErrorMessage For="name" />
@@ -72,20 +72,20 @@
           type="text"
           placeholder="Amount"
           name="amount"
-          value={modalStates.amount}
+          value={modalState.amount}
           class="p-3 bg-white entry-field border-2 border-gray-300 rounded-lg outline-none"
         />
         <ErrorMessage For="amount" />
         <textarea
           placeholder="Description"
           name="desc"
-          value={modalStates.desc}
+          value={modalState.desc}
           class="p-3 h-[20vh] bg-white entry-field border-2 border-gray-300 rounded-lg outline-none resize-none"
         />
         <ErrorMessage For="desc" />
         <div class="flex gap-3 items-center">
           <select
-            value={modalStates.type}
+            value={modalState.type}
             name="type"
             class="p-3 bg-white entry-field border-2 border-gray-300 rounded-lg outline-none"
           >
@@ -96,7 +96,7 @@
             type="date"
             placeholder="Date"
             name="date"
-            value={modalStates.date}
+            value={modalState.date}
             class="p-3 bg-white entry-field border-2 border-gray-300 rounded-lg outline-none"
           />
           <ErrorMessage For="date" />

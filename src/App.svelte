@@ -2,10 +2,10 @@
   import Checkout from "./lib/Checkout.svelte";
   import Scaffold from "./lib/Scaffold.svelte";
 
-  let modalVisible = false;
+  let visible = false;
   let showIncome = true;
-  const show_modal = () => (modalVisible = true);
-  const closeModal = () => (modalVisible = false);
+  const show_modal = () => (visible = true);
+  const closeModal = () => (visible = false);
   const swap_entry = () => (showIncome = !showIncome);
 </script>
 
@@ -16,6 +16,6 @@
   <div
     class="h-[91vh] overflow-y-scroll remove-scrollbar border-t-2 pt-2 border-gray-300"
   >
-    <Checkout {modalVisible} {closeModal} {showIncome} />
+    <Checkout {visible} {closeModal} {showIncome} />
   </div>
 </main>
